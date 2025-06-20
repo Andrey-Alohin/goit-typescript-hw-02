@@ -1,0 +1,22 @@
+.errorContainer {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  padding: 16px 24px;
+  border-radius: 8px;
+  margin: 24px auto;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
+}
+
+.errorTitle {
+  color: #b91c1c;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.errorText {
+  color: #7f1d1d;
+  font-size: 16px;
+}

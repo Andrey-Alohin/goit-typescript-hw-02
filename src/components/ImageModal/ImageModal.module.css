@@ -1,0 +1,67 @@
+.modalContainer {
+  position: relative;
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.originalImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.imageInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: white;
+  width: fit-content;
+}
+
+.userImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 14px;
+  margin: 0;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.linkOriginal {
+  color: #fff;
+  font-size: 12px;
+  text-decoration: underline;
+  align-self: flex-start;
+}
