@@ -20,7 +20,13 @@
   display: block;
   object-fit: cover;
   border-radius: inherit;
-  transition: transform 0.3s ease;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: transform 0.3s ease, opacity 0.3s ease-in;
+}
+.loaded {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .containerImg:hover .image {

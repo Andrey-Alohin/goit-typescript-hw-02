@@ -1,6 +1,10 @@
 import { FcLike } from "react-icons/fc";
 import css from "./ImageModal.module.css";
 import Modal from "react-modal";
+import { ModalImage } from "../../types/modalObj";
+import { useEffect, useState } from "react";
+import { FadeLoader } from "react-spinners";
+import PlaceHolderModal from "../PlaceHolderModal/PlaceHolderModal";
 
 const customStyles = {
   content: {
@@ -19,11 +23,16 @@ const customStyles = {
   },
 };
 
-function ImageModal({
-  isModalOpen,
-  modalInfo: { likes, description, alt, imgUrl, sourceLink, user = {} },
-  closeModal,
-}) {
+type Props = {
+  isModalOpen: boolean;
+  modalInfo: ModalImage;
+  closeModal: () => void;
+};
+
+function ImageModal({ isModalOpen, modalInfo, closeModal }: Props) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { likes, description, alt, imgUrl, sourceLink, user } = modalInfo;
+  useEffect(() => setIsLoaded(false), [modalInfo]);
   return (
     <Modal
       isOpen={isModalOpen}
@@ -32,9 +41,11 @@ function ImageModal({
       contentLabel={`Full image of ${alt}`}
     >
       <div className={css.modalContainer}>
+        <PlaceHolderModal isLoaded={isLoaded} />
         <img
-          className={css.originalImg}
-          src={`${imgUrl}$fm=webp`}
+          className={`${css.originalImg} ${isLoaded && css.loaded}`}
+          onLoad={() => setIsLoaded(true)}
+          src={`${imgUrl}&fm=webp`}
           alt={alt}
           srcSet={`${imgUrl}&dpr=1&fm=webp 1x, ${imgUrl}&dpr=2&fm=webp 2x`}
         />
@@ -49,7 +60,7 @@ function ImageModal({
               className={css.userImg}
               src={`${user.profImg}&fm=webp`}
               srcSet={`${user.profImg}&dpr=1&fm=webp 1x,
-              ${user.profImg}&dpr=2&fm=webp 2x`}
+                ${user.profImg}&dpr=2&fm=webp 2x`}
               alt={`avatar${user.name}`}
             />
             <h3 className={css.userName}>{user.name}</h3>

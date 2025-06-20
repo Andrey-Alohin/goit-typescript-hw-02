@@ -1,15 +1,22 @@
 import toast, { Toaster } from "react-hot-toast";
 import css from "./SearchBar.module.css";
+import { FormEvent } from "react";
 
-function SearchBar({ onSubmit }) {
-  const handleSubmit = (e) => {
+type Props = {
+  onSubmit: (newQuery: string) => void;
+};
+
+function SearchBar({ onSubmit }: Props) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const searchText = e.target.elements.search.value.trim();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const searchText = formData.get("search");
     if (searchText === "") {
       toast.error("Type any word", { duration: 1000 });
     }
-    onSubmit(searchText);
-    e.target.reset();
+    onSubmit(searchText as string);
+    form.reset();
     return;
   };
   return (

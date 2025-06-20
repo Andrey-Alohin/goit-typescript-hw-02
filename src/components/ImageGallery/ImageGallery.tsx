@@ -1,7 +1,13 @@
+import { Image } from "../../types/image";
 import ImageCard from "../ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
 
-function ImageGallery({ images, clickImg }) {
+type Props = {
+  images: Image[];
+  clickImg: (imgInfo: Image) => void;
+};
+
+function ImageGallery({ images, clickImg }: Props) {
   return (
     <ul className={css.galery}>
       {images.map((item) => {

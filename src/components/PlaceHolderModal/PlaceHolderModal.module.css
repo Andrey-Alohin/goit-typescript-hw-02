@@ -1,0 +1,11 @@
+.show {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity ease-in-out 300ms, display ease-in-out 300ms;
+}
+
+.show.hide {
+  opacity: 0;
+  pointer-events: none;
+}
