@@ -3,7 +3,7 @@ import css from "./ImageModal.module.css";
 import Modal from "react-modal";
 import { ModalImage } from "../../types/modalObj";
 import { useEffect, useState } from "react";
-import PlaceHolderModal from "../LoaderImg/LoaderImg";
+import LoaderImg from "../LoaderImg/LoaderImg";
 import { settingsImg } from "../../helper/settingsImg";
 
 const customStyles = {
@@ -45,7 +45,7 @@ function ImageModal({ isModalOpen, modalInfo, closeModal }: Props) {
       contentLabel={`Full image of ${alt}`}
     >
       <div className={css.modalContainer}>
-        <PlaceHolderModal isLoaded={isLoaded} />
+        <LoaderImg isLoaded={isLoaded} />
         <img
           className={`${css.originalImg} ${isLoaded && css.loaded}`}
           onLoad={() => setIsLoaded(true)}
