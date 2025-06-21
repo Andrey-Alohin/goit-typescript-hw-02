@@ -1,9 +1,9 @@
 import { FadeLoader } from "react-spinners";
-import css from "./PlaceHolderModal.module.css";
+import css from "./LoaderImg.module.css";
 type Props = {
   isLoaded: Boolean;
 };
-function PlaceHolderModal({ isLoaded }: Props) {
+function LoaderImg({ isLoaded }: Props) {
   return (
     <div className={`${css.show}  ${isLoaded && css.hide}`}>
       <FadeLoader
@@ -16,4 +16,4 @@ function PlaceHolderModal({ isLoaded }: Props) {
   );
 }
 
-export default PlaceHolderModal;
+export default LoaderImg;

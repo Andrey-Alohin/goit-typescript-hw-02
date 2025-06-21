@@ -3,8 +3,8 @@ import css from "./ImageModal.module.css";
 import Modal from "react-modal";
 import { ModalImage } from "../../types/modalObj";
 import { useEffect, useState } from "react";
-import { FadeLoader } from "react-spinners";
-import PlaceHolderModal from "../PlaceHolderModal/PlaceHolderModal";
+import PlaceHolderModal from "../LoaderImg/LoaderImg";
+import { settingsImg } from "../../helper/settingsImg";
 
 const customStyles = {
   content: {
@@ -15,6 +15,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     padding: 0,
     border: "none",
+    borderRadius: "16px",
     background: "none",
   },
   overlay: {
@@ -25,11 +26,14 @@ const customStyles = {
 
 type Props = {
   isModalOpen: boolean;
-  modalInfo: ModalImage;
+  modalInfo: ModalImage | null;
   closeModal: () => void;
 };
 
 function ImageModal({ isModalOpen, modalInfo, closeModal }: Props) {
+  if (modalInfo === null) {
+    return;
+  }
   const [isLoaded, setIsLoaded] = useState(false);
   const { likes, description, alt, imgUrl, sourceLink, user } = modalInfo;
   useEffect(() => setIsLoaded(false), [modalInfo]);
@@ -45,9 +49,11 @@ function ImageModal({ isModalOpen, modalInfo, closeModal }: Props) {
         <img
           className={`${css.originalImg} ${isLoaded && css.loaded}`}
           onLoad={() => setIsLoaded(true)}
-          src={`${imgUrl}&fm=webp`}
+          src={imgUrl + settingsImg.format}
           alt={alt}
-          srcSet={`${imgUrl}&dpr=1&fm=webp 1x, ${imgUrl}&dpr=2&fm=webp 2x`}
+          srcSet={`${
+            imgUrl + settingsImg.scrcSet.img1x + settingsImg.format
+          } 1x, ${imgUrl + settingsImg.scrcSet.img2x} 2x`}
         />
         <div className={css.imageInfo}>
           <a
@@ -58,9 +64,13 @@ function ImageModal({ isModalOpen, modalInfo, closeModal }: Props) {
           >
             <img
               className={css.userImg}
-              src={`${user.profImg}&fm=webp`}
-              srcSet={`${user.profImg}&dpr=1&fm=webp 1x,
-                ${user.profImg}&dpr=2&fm=webp 2x`}
+              src={user.profImg + settingsImg.format}
+              srcSet={`${
+                user.profImg + settingsImg.scrcSet.img1x + settingsImg.format
+              } 1x,
+                ${
+                  user.profImg + settingsImg.scrcSet.img2x + settingsImg.format
+                } 2x`}
               alt={`avatar${user.name}`}
             />
             <h3 className={css.userName}>{user.name}</h3>

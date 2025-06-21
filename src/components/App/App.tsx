@@ -1,16 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-// import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
 const ImageGallery = lazy(() => import("../ImageGallery/ImageGallery"));
-// import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 const LoadMoreBtn = lazy(() => import("../LoadMoreBtn/LoadMoreBtn"));
-// import ErrorMessage from "../ErrorMessage/ErrorMessage";
 const ErrorMessage = lazy(() => import("../ErrorMessage/ErrorMessage"));
-import { fetchImages } from "../../unsplash-api";
-import Loader from "../Loader/Loader";
-// import ImageModal from "../ImageModal/ImageModal";
+const Loader = lazy(() => import("../Loader/Loader"));
 const ImageModal = lazy(() => import("../ImageModal/ImageModal"));
 import toast from "react-hot-toast";
+import { fetchImages } from "../../unsplash-api";
 import { Image } from "../../types/image";
 import { ModalImage } from "../../types/modalObj";
 function App() {
@@ -21,18 +17,7 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [isError, setError] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [modalInfo, setModalInfo] = useState<ModalImage>({
-    likes: 0,
-    description: "",
-    alt: "",
-    imgUrl: "",
-    sourceLink: "",
-    user: {
-      name: "",
-      profImg: "",
-      link: "",
-    },
-  });
+  const [modalInfo, setModalInfo] = useState<null | ModalImage>(null);
 
   const searchImg = (newQuery: string): void => {
     if (newQuery.toLowerCase() === userQuery.toLowerCase()) {
@@ -64,18 +49,7 @@ function App() {
 
   const closeModal = () => {
     setModalOpen(false);
-    setModalInfo({
-      likes: 0,
-      description: "",
-      alt: "",
-      imgUrl: "",
-      sourceLink: "",
-      user: {
-        name: "",
-        profImg: "",
-        link: "",
-      },
-    });
+    setModalInfo(null);
   };
   useEffect(() => {
     if (userQuery === "") {
@@ -106,11 +80,13 @@ function App() {
       <SearchBar onSubmit={searchImg} />
       <Suspense fallback={null}>
         {hasImages && <ImageGallery images={images} clickImg={openModal} />}
-        {isLoading && <Loader />}
         {hasImages && !isLoading && !isLastPage && (
           <LoadMoreBtn loadMore={loadMore} />
         )}
+        {isLoading && <Loader />}
         {isError && <ErrorMessage />}
+      </Suspense>
+      <Suspense fallback={null}>
         <ImageModal
           isModalOpen={isModalOpen}
           modalInfo={modalInfo}

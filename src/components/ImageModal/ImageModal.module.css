@@ -5,10 +5,8 @@
 .modalContainer {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  /* opacity: 0;
-  pointer-events: none; */
 }
 
 .originalImg {
@@ -17,11 +15,13 @@
   max-width: 90vw;
   max-height: 85vh;
   opacity: 0;
-  transition: opacity ease-in-out 300ms;
+  filter: blur(3px);
+  transition: opacity ease-in-out 300ms, filter ease-in-out 600ms;
 }
 
 .loaded {
   opacity: 1;
+  filter: blur(0);
 }
 
 .loaderContainer {
